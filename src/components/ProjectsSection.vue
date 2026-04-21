@@ -19,11 +19,30 @@ const projects = ref([
   {
     id: 3,
     title: 'Room Booking System forMFU',
-    description: 'Interactive data visualization dashboard providing deep insights into user metrics and business performance.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
-    tags: ['Vue', 'D3.js', 'Tailwind']
+    description: 'A web application for Mae Fah Luang University staff to book rooms. Built with Vue 3 (Frontend) and Express.js (Backend API Gateway). Features include MFU SSO (OAuth2) integration, real-time room availability search, booking management, bilingual support, and a custom modern Dark Glassmorphism UI.',
+    image: '/assets/Roombooking.png',
+    tags: ['Vue 3', 'Node.js', 'OAuth2', 'Docker']
   }
 ]);
+
+const selectedProject = ref(null);
+const isImageZoomed = ref(false);
+
+const openDetails = (project) => {
+  selectedProject.value = project;
+  isImageZoomed.value = false;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeDetails = () => {
+  selectedProject.value = null;
+  isImageZoomed.value = false;
+  document.body.style.overflow = '';
+};
+
+const toggleZoom = () => {
+  isImageZoomed.value = !isImageZoomed.value;
+};
 </script>
 
 <template>
@@ -43,7 +62,7 @@ const projects = ref([
         >
           <div class="project-image-wrapper">
             <img :src="project.image" :alt="project.title" class="project-image" />
-            <div class="project-overlay">
+            <div class="project-overlay" @click="openDetails(project)">
               <span class="view-project-btn">View Details</span>
             </div>
           </div>
@@ -57,6 +76,44 @@ const projects = ref([
         </div>
       </div>
     </div>
+
+    <!-- Trello-style Modal -->
+    <div v-if="selectedProject" class="modal-overlay" @click.self="closeDetails">
+      <div class="modal-card">
+        <button class="close-modal" @click="closeDetails">&times;</button>
+        
+        <!-- Top 30% Image -->
+        <div class="modal-cover" @click="toggleZoom">
+          <img :src="selectedProject.image" :alt="selectedProject.title" />
+          <div class="expand-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            <span>Click to Expand</span>
+          </div>
+        </div>
+
+        <!-- Bottom 70% Content -->
+        <div class="modal-body">
+          <div class="modal-header-content">
+             <div class="project-tags">
+               <span v-for="tag in selectedProject.tags" :key="tag" class="tag">{{ tag }}</span>
+             </div>
+             <h2 class="modal-title">{{ selectedProject.title }}</h2>
+          </div>
+          
+          <div class="modal-details">
+            <h3>Description</h3>
+            <p>{{ selectedProject.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Image Zoom Overlay -->
+    <div v-if="isImageZoomed" class="zoom-overlay" @click="toggleZoom">
+      <button class="close-zoom" @click.stop="toggleZoom">&times;</button>
+      <img :src="selectedProject.image" class="zoomed-image" />
+    </div>
+
   </section>
 </template>
 
@@ -192,6 +249,211 @@ const projects = ref([
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+  .modal-card {
+    height: 90vh;
+  }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-card {
+  background: var(--color-bg-base);
+  width: 100%;
+  max-width: 800px;
+  height: 80vh;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--color-border);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.close-modal:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.modal-cover {
+  height: 30%;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.modal-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-cover:hover img {
+  transform: scale(1.05);
+}
+
+.expand-icon {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.85rem;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-cover:hover .expand-icon {
+  opacity: 1;
+}
+
+.modal-body {
+  height: 70%;
+  padding: 2.5rem;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, var(--color-bg-surface), var(--color-bg-base));
+}
+
+.modal-header-content {
+  margin-bottom: 2rem;
+}
+
+.modal-title {
+  font-size: 2.2rem;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-details h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-details h3::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-accent-primary);
+}
+
+.modal-details p {
+  color: var(--color-text-primary);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+/* Zoom Overlay */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  padding: 2rem;
+}
+
+.zoomed-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  animation: zoomPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.close-zoom {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 3rem;
+  cursor: pointer;
+  z-index: 1101;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.close-zoom:hover {
+  opacity: 1;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes zoomPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 </style>
