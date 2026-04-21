@@ -6,7 +6,7 @@ const projects = ref([
     id: 1,
     title: 'DindinAI For MFU',
     description: 'An intelligent conversational assistant built to streamline customer support and handle inquiries automatically 24/7.',
-    image: '/assets/project_chatbot.png',
+    image: '/assets/din.png',
     tags: ['Vue', 'Node.js', 'AI', 'AWS']
   },
   {
