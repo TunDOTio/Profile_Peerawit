@@ -1,12 +1,39 @@
 <script setup>
+import { ref } from 'vue';
+
+const skills = ref([
+  { name: 'Vue.js', category: 'Front End' },
+  { name: 'Node.js', category: 'Back end' },
+  { name: 'MySQL', category: 'Database' },
+  { name: 'MongoDB', category: 'Database' },
+  { name: 'Docker', category: 'container Application' },
+  { name: 'OAuth2 / JWT', category: 'Security' },
+  { name: 'FastAPI', category: 'Backend API Framework' },
+  { name: 'Javascript', category: 'Front & Back end' },
+  { name: 'Go2rtc', category: 'Backend Streaming Framework' }
+]);
 </script>
 
 <template>
   <section id="contact" class="contact-section">
-    <div class="container">
-      <div v-reveal class="contact-box">
-        <h2 class="contact-title">Let's Work <span class="gradient-text">Together</span></h2>
-        <p class="contact-subtitle">
+    <div class="container content-wrapper">
+      
+      <!-- Skills Box -->
+      <div v-reveal class="content-box">
+        <h2 class="box-title">My <span class="gradient-text">Skills</span></h2>
+        <div class="skills-list">
+          <div v-for="skill in skills" :key="skill.name" class="skill-row">
+            <span class="skill-name">{{ skill.name }}</span>
+            <span class="skill-separator">-</span>
+            <span class="skill-category">{{ skill.category }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Box -->
+      <div v-reveal class="content-box">
+        <h2 class="box-title">Let's Work <span class="gradient-text">Together</span></h2>
+        <p class="box-subtitle">
           I'm currently available for freelance work and new opportunities. 
           If you have a project that needs some creative touch, I'd love to hear about it.
         </p>
@@ -18,6 +45,7 @@
           </div>
         </div>
       </div>
+      
     </div>
     
     <footer class="footer">
@@ -37,31 +65,75 @@
   justify-content: space-between;
 }
 
-.contact-box {
-  margin: auto;
+.content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.content-box {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
   text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
   backdrop-filter: blur(10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.contact-title {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  margin-bottom: 1.5rem;
+.box-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin-bottom: 1rem;
 }
 
-.contact-subtitle {
+.box-subtitle {
   color: var(--color-text-secondary);
   font-size: 1.1rem;
-  margin-bottom: 3rem;
-  max-width: 600px;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: left;
+  margin: 1rem auto 0;
+  max-width: 400px;
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skill-row:last-child {
+  border-bottom: none;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  min-width: 130px;
+}
+
+.skill-separator {
+  color: var(--color-accent-primary);
+  margin: 0 0.8rem;
+}
+
+.skill-category {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
 }
 
 .contact-links {
