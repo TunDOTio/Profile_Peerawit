@@ -4,21 +4,21 @@ import { ref } from 'vue';
 const projects = ref([
   {
     id: 1,
-    title: 'Chatbot Project',
+    title: 'DindinAI For MFU',
     description: 'An intelligent conversational assistant built to streamline customer support and handle inquiries automatically 24/7.',
     image: '/assets/project_chatbot.png',
     tags: ['Vue', 'Node.js', 'AI', 'Chatbot']
   },
   {
     id: 2,
-    title: 'E-commerce Platform',
+    title: 'CCTVmap MFU',
     description: 'A full-stack online store with real-time inventory management, secure payments, and an intuitive user interface.',
     image: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000&auto=format&fit=crop',
     tags: ['React', 'Next.js', 'Stripe']
   },
   {
     id: 3,
-    title: 'Dashboard Analytics',
+    title: 'Room Booking System forMFU',
     description: 'Interactive data visualization dashboard providing deep insights into user metrics and business performance.',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
     tags: ['Vue', 'D3.js', 'Tailwind']
@@ -62,8 +62,12 @@ const projects = ref([
 
 <style scoped>
 .projects-section {
+  min-height: 100vh;
   padding: 100px 0;
   position: relative;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
 }
 
 .section-header {

@@ -28,11 +28,17 @@
 
 <style scoped>
 .contact-section {
+  min-height: 100vh;
   padding-top: 100px;
   position: relative;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .contact-box {
+  margin: auto;
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
