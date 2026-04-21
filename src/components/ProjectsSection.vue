@@ -13,7 +13,7 @@ const projects = ref([
     id: 2,
     title: 'CCTVmap MFU',
     description: 'A full-stack online store with real-time inventory management, secure payments, and an intuitive user interface.',
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000&auto=format&fit=crop',
+    image: '/assets/cctvmap.png',
     tags: ['React', 'Next.js', 'Stripe']
   },
   {
@@ -71,7 +71,6 @@ const toggleZoom = () => {
               <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
             </div>
             <h3 class="project-title">{{ project.title }}</h3>
-            <p class="project-description">{{ project.description }}</p>
           </div>
         </div>
       </div>
@@ -145,12 +144,33 @@ const toggleZoom = () => {
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  display: flex;
+  overflow-x: auto;
   gap: 2.5rem;
+  padding-bottom: 2rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-primary) rgba(255, 255, 255, 0.05);
+}
+
+.projects-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+  background: var(--color-accent-primary);
+  border-radius: 10px;
 }
 
 .project-card {
+  min-width: 350px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -247,8 +267,8 @@ const toggleZoom = () => {
 }
 
 @media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .project-card {
+    min-width: 85vw;
   }
   .modal-card {
     height: 90vh;
