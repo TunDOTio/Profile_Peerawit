@@ -12,7 +12,7 @@ const projects = ref([
   {
     id: 2,
     title: 'CCTVmap MFU',
-    description: 'A full-stack online store with real-time inventory management, secure payments, and an intuitive user interface.',
+    description: 'A web application for Mae Fah Luang University designed to monitor camera statuses and manage configurations. It features real-time viewing via a streaming framework, significantly reducing server load and minimizing video latency.',
     image: '/assets/cctvmap.png',
     tags: ['Vue 3', 'Node.js', 'RTSP','Go2rtc','Database']
   },
