@@ -7,21 +7,21 @@ const projects = ref([
     title: 'DindinAI For MFU',
     description: 'An intelligent conversational assistant built to streamline customer support and handle inquiries automatically 24/7.',
     image: '/assets/project_chatbot.png',
-    tags: ['Vue', 'Node.js', 'AI', 'Chatbot']
+    tags: ['Vue', 'Node.js', 'AI', 'AWS']
   },
   {
     id: 2,
     title: 'CCTVmap MFU',
     description: 'A full-stack online store with real-time inventory management, secure payments, and an intuitive user interface.',
     image: '/assets/cctvmap.png',
-    tags: ['React', 'Next.js', 'Stripe']
+    tags: ['Vue 3', 'Node.js', 'RTSP','Go2rtc','Database']
   },
   {
     id: 3,
     title: 'Room Booking System forMFU',
     description: 'A web application for Mae Fah Luang University staff to book rooms. Built with Vue 3 (Frontend) and Express.js (Backend API Gateway). Features include MFU SSO (OAuth2) integration, real-time room availability search, booking management, bilingual support, and a custom modern Dark Glassmorphism UI.',
     image: '/assets/Roombooking.png',
-    tags: ['Vue 3', 'Node.js', 'OAuth2', 'Docker']
+    tags: ['Vue 3', 'Node.js', 'OAuth2', 'Docker','API']
   }
 ]);
 
