@@ -114,7 +114,7 @@ const handleProjectClick = (project, e) => {
           v-reveal
         >
           <div class="project-image-wrapper">
-            <img :src="project.image" :alt="project.title" class="project-image" />
+            <img :src="project.image" :alt="project.title" class="project-image" draggable="false" />
             <div class="project-overlay" @click="handleProjectClick(project, $event)">
               <span class="view-project-btn">View Details</span>
             </div>
@@ -205,11 +205,13 @@ const handleProjectClick = (project, e) => {
   scrollbar-width: thin;
   scrollbar-color: var(--color-accent-primary) rgba(255, 255, 255, 0.05);
   cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .projects-grid.active {
   cursor: grabbing;
-  scroll-snap-type: none; /* Disable snap during drag for smooth scroll */
+  scroll-snap-type: none;
 }
 
 .projects-grid::-webkit-scrollbar {
