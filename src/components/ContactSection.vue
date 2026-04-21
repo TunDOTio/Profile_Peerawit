@@ -38,7 +38,10 @@ const skills = ref([
           If you have a project that needs some creative touch, I'd love to hear about it.
         </p>
         <div class="contact-links">
-          <a href="mailto:hello@example.com" class="btn btn-primary">Say Hello</a>
+          <div class="email-wrapper">
+            <a href="mailto:tuntun.peerawit@gmail.com" class="btn btn-primary">Say Hello</a>
+            <a href="mailto:tuntun.peerawit@gmail.com" class="email-link">tuntun.peerawit@gmail.com</a>
+          </div>
           <div class="social-links">
             <a href="https://github.com/TunDOTio" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
             <a href="#" class="social-link">LinkedIn</a>
@@ -141,6 +144,24 @@ const skills = ref([
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+}
+
+.email-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.email-link {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.email-link:hover {
+  color: var(--color-accent-primary);
 }
 
 .social-links {

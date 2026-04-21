@@ -5,7 +5,7 @@ const projects = ref([
   {
     id: 1,
     title: 'DindinAI For MFU',
-    description: 'An intelligent conversational assistant built to streamline customer support and handle inquiries automatically 24/7.',
+    description: 'An Enterprise-grade AI Chatbot project featuring a decoupled architecture for user management, AI processing, and document retrieval. Powered by AWS Bedrock using Claude 3.5 Sonnet as the core LLM, it utilizes multiple supporting AI models to optimize costs. It integrates Typhoon AI for image-based file processing and advanced Thai language OCR. Amazon Titan Embeddings converts knowledge documents into vectors stored in ChromaDB, enabling rapid retrieval during user queries and improving AI response times.',
     image: '/assets/din.png',
     tags: ['Vue', 'Node.js', 'AI', 'AWS']
   },
