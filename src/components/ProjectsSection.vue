@@ -43,6 +43,52 @@ const closeDetails = () => {
 const toggleZoom = () => {
   isImageZoomed.value = !isImageZoomed.value;
 };
+
+// Drag to scroll logic
+const gridRef = ref(null);
+let isDown = false;
+let startX;
+let scrollLeft;
+const isDragging = ref(false);
+
+const onMouseDown = (e) => {
+  isDown = true;
+  gridRef.value.classList.add('active');
+  startX = e.pageX - gridRef.value.offsetLeft;
+  scrollLeft = gridRef.value.scrollLeft;
+  isDragging.value = false;
+};
+
+const onMouseLeave = () => {
+  isDown = false;
+  if(gridRef.value) gridRef.value.classList.remove('active');
+};
+
+const onMouseUp = () => {
+  isDown = false;
+  if(gridRef.value) gridRef.value.classList.remove('active');
+  setTimeout(() => { isDragging.value = false; }, 50);
+};
+
+const onMouseMove = (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - gridRef.value.offsetLeft;
+  const walk = (x - startX) * 2; // scroll speed multiplier
+  if (Math.abs(walk) > 5) {
+    isDragging.value = true;
+  }
+  gridRef.value.scrollLeft = scrollLeft - walk;
+};
+
+const handleProjectClick = (project, e) => {
+  if (isDragging.value) {
+    e.preventDefault();
+    e.stopPropagation();
+    return;
+  }
+  openDetails(project);
+};
 </script>
 
 <template>
@@ -53,7 +99,14 @@ const toggleZoom = () => {
         <p class="section-subtitle">Here are some of my recent works that showcase my skills and passion for building great products.</p>
       </div>
 
-      <div class="projects-grid">
+      <div 
+        class="projects-grid"
+        ref="gridRef"
+        @mousedown="onMouseDown"
+        @mouseleave="onMouseLeave"
+        @mouseup="onMouseUp"
+        @mousemove="onMouseMove"
+      >
         <div 
           v-for="project in projects" 
           :key="project.id" 
@@ -62,7 +115,7 @@ const toggleZoom = () => {
         >
           <div class="project-image-wrapper">
             <img :src="project.image" :alt="project.title" class="project-image" />
-            <div class="project-overlay" @click="openDetails(project)">
+            <div class="project-overlay" @click="handleProjectClick(project, $event)">
               <span class="view-project-btn">View Details</span>
             </div>
           </div>
@@ -151,6 +204,12 @@ const toggleZoom = () => {
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
   scrollbar-color: var(--color-accent-primary) rgba(255, 255, 255, 0.05);
+  cursor: grab;
+}
+
+.projects-grid.active {
+  cursor: grabbing;
+  scroll-snap-type: none; /* Disable snap during drag for smooth scroll */
 }
 
 .projects-grid::-webkit-scrollbar {
@@ -267,11 +326,30 @@ const toggleZoom = () => {
 }
 
 @media (max-width: 768px) {
+  .projects-section {
+    height: auto;
+  }
+  .projects-grid {
+    flex-direction: column;
+    overflow-x: hidden;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
   .project-card {
-    min-width: 85vw;
+    min-width: 100%;
+    max-width: 100%;
   }
   .modal-card {
     height: 90vh;
+  }
+  .modal-body {
+    padding: 1.5rem;
+  }
+  .modal-title {
+    font-size: 1.5rem;
+  }
+  .modal-overlay {
+    padding: 1rem;
   }
 }
 

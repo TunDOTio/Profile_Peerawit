@@ -40,7 +40,7 @@ const skills = ref([
         <div class="contact-links">
           <a href="mailto:hello@example.com" class="btn btn-primary">Say Hello</a>
           <div class="social-links">
-            <a href="#" class="social-link">GitHub</a>
+            <a href="https://github.com/TunDOTio" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
             <a href="#" class="social-link">LinkedIn</a>
           </div>
         </div>
@@ -67,7 +67,7 @@ const skills = ref([
 
 .content-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   width: 100%;
 }
@@ -76,7 +76,7 @@ const skills = ref([
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 3rem 2rem;
+  padding: 2.5rem 1.5rem;
   text-align: center;
   backdrop-filter: blur(10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -180,5 +180,21 @@ const skills = ref([
   color: var(--color-text-secondary);
   font-size: 0.9rem;
   border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding-top: 80px;
+    height: auto;
+  }
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .content-box {
+    padding: 2rem 1rem;
+  }
+  .box-title {
+    font-size: 2rem;
+  }
 }
 </style>
