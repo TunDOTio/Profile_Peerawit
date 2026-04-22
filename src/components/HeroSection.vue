@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const roles = ['Web Applications', 'AI Chatbots', 'Digital Experiences', 'Enterprise Solutions'];
+const roles = ['Web Applications', 'AI Chatbots', 'Digital Experiences', 'Enterprise Solutions','Prompt Engineering'];
 const currentRole = ref('');
 let roleIndex = 0;
 let charIndex = 0;
@@ -54,7 +54,7 @@ onUnmounted(() => {
         Hi, I'm <span class="gradient-text">Peerawit</span>
       </h1>
       <p class="hero-subtitle">
-        I specialize in building <br />
+        I specialize in Prompt Engineering <br />
         <span class="typewriter-text">{{ currentRole }}<span class="cursor">|</span></span>
       </p>
       <div class="hero-actions">
